@@ -2,6 +2,7 @@
 This module is used to interface with the motors.
 */
 
+// globals includes the 4 integer directions
 #include "globals.h"
 
 // double is power: should be between -1 and 1
