@@ -3,33 +3,40 @@ This module interfaces with the encoders.
 */
 
 #include "globals.h"
+#include "pololu/encoders.h"
 
 // struct holds the # of encoders clicks seen so far
 struct Encoders {
-	int n_clicks_north = 0;
-	int n_clicks_east = 0;
-	int n_clicks_south = 0;
-	int n_clicks_west = 0;
-	double meters_per_click = 0.001; // TODO: correct this value!
-	// add other data if needed
-}
+  int n_clicks_north = 0;
+  int n_clicks_east = 0;
+  int n_clicks_south = 0;
+  int n_clicks_west = 0;
+  double rev_per_click = 1.0/48.0;
+  double cirumference = 48; // in meters TODO: Get right value
+};
+
+const int forwardAPin = 1;
+const int forwardBPin = 2;
+const int leftAPin = 1;
+const int leftBPin = 2;
 
 // this is just a pointer to the Encoders struct
 // used for passing Encoders to/from functions
 typedef struct Encoders *Encoders_T;
 
-// whatever initialization is needed
-Encoders_T init() {
-	// TODO
+void init() {
+  // TODO
+  //encoders_init(forwardAPin, forwardBPin, leftAPin, leftBPin);
+  encoders_init('a', 'b', 'c', 'd');
 }
 
 // anything needed during reset
-void reset(Encoders_T) {
-	// TODO
-	// Example: Encoders_T->n_clicks = 0?
+void reset() {
+  // TODO
+  // Example: Encoders_T->n_clicks = 0?
 }
 
 // return distance traveled since init occurred
 double getCumulDist(int direction) {
-	// TODO
+  // TODO
 }
