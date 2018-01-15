@@ -40,7 +40,7 @@ DistSensors_T init() {
 
 // reset the DistSensors object
 // this may be empty but it's included just in case we do need it
-void reset(DistSensors_T ) {
+void reset(DistSensors_T) {
 	// TODO
 }
 
