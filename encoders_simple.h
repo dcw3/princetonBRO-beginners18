@@ -36,7 +36,27 @@ void reset() {
   // Example: Encoders_T->n_clicks = 0?
 }
 
-// return distance traveled since init occurred
+// return distance traveled since init occurred... This might be a mess right now.
 double getCumulDist(int direction) {
   // TODO
+  int clicks = 0;
+  switch(direction) {
+
+   case NORTH  :
+      clicks = n_clicks_north;
+      break;
+  
+   case SOUTH  :
+      clicks = n_clicks_south;
+      break;
+
+    case EAST  :
+      clicks = n_clicks_east;
+      break;
+
+    case WEST  :
+      clicks = n_clicks_west;
+      break;
+    }
+    return (Encoders.rev_per_click * clicks * Encoders.cirumference);
 }
