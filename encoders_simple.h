@@ -12,9 +12,15 @@ const char forwardAPin = PD1;
 const char forwardBPin = PD2;
 const char leftAPin = PD3;
 const char leftBPin = PD4;
+int numCalls;
+double northDirection;
+double eastDirection;
 
 void init() {
   encoders_init(forwardAPin, forwardBPin, leftAPin, leftBPin);
+    numCalls = 0;
+    northDirection = 0;
+    eastDirection = 0;
 }
 
 // anything needed during reset
@@ -25,11 +31,16 @@ void reset() {
 
 // return distance traveled since init occurred... This might be a mess right now.
 double getCumulDist(int direction) {
+    if (numCalls % 50 == 0) {
+        northDirection = (rev_per_click * encoders_get_counts_and_reset_m1() * circumference_up);
+        eastDirection = (rev_per_click * encoders_get_counts_and_reset_m2() * circumference_left);
+    }
+    numCalls++;
   switch(direction) {
    case NORTH  :
-       return (rev_per_click * encoders_get_counts_m1() * circumference_up);
+       return (northDirection + (rev_per_click * encoders_get_counts_m1() * circumference_up));
 
     case EAST  :
-      return (rev_per_click * encoders_get_counts_m2() * circumference_left);
+      return (eastDirection + (rev_per_click * encoders_get_counts_m2() * circumference_left));
     }
 }
