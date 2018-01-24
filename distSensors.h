@@ -10,6 +10,10 @@ double const INIT_E_OFFSET = 0;
 double const INIT_S_OFFSET = 0;
 double const INIT_W_OFFSET = 0;
 
+// max distance for detectWall
+// what should this be? or should this be 0
+double const WALL = 10;
+
 // this struct holds the offsets needed for each offset
 // feel free to add other stuff to this struct as well
 struct DistSensors {
@@ -24,7 +28,16 @@ typedef struct DistSensors *DistSensors_T;
 
 // Return the distance reading from the given direction
 double getDist(DistSensors_T sensors, int direction) {
-	// TODO
+	switch (direction) {
+	case 1:
+		return sensors.northOffset;
+	case 2:
+		return sensors.southhOffset;
+	case 3:
+		return sensors.westOffset;
+	case 4:
+		return sensors.eastOffset;
+	}
 }
 
 // Calibrate the distance sensor by updating that offset
@@ -45,6 +58,7 @@ void reset(DistSensors_T) {
 }
 
 // return 1 if there is a wall, 0 if there is not a wall
-int detectWall(int direction) {
-	// TODO
+int detectWall(DistSensors_T sensors, int direction) {
+	if (getDist(sensors, direction) <= WALL) return 1;
+	return 0;
 }
