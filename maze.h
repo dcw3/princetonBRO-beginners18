@@ -36,16 +36,30 @@ void updatePosition(Maze_T maze, int coord_1, int coord_2) {
 	maze->nodes[coord_1][coord_2].visited = 1;
 }
 
-int getDirection(Maze_T maze) {
-	// TODO: write code for this
-	/*
+int getDirection(Maze_T maze, int coord_1, int coord_2) {
+	// TODO: write code for this -> DONE
+
+
+	// Assumption: robot starts from bottom right part of maze
 		// check if north has been visited
-		// if false:
-			if detectWall(NORTH) {return NORTH}
-		repeat for all directions
+		if (!maze->nodes[coord_1 - 1][coord_2].visited == 1){
+                if detectWall(NORTH) {return NORTH;}
+		}
 
-		// since no path chosen yet
-		// backtrace
+		// check if south has been visited
+		if (!maze->nodes[coord_1 + 1][coord_2].visited == 1){
+                if detectWall(SOUTH) {return SOUTH;}
+		}
 
-	*/
+		// check if east has been visited
+		if (!maze->nodes[coord_1][coord_2 + 1].visited == 1){
+                if detectWall(EAST) {return EAST;}
+		}
+
+		// check if west has been visited
+		if (!maze->nodes[coord_1][coord_2 - 1].visited == 1){
+                if detectWall(WEST) {return WEST;}
+		}
+
+
 }
