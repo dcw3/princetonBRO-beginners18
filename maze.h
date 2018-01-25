@@ -42,22 +42,22 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
 
 	// Assumption: robot starts from bottom right part of maze
 		// check if north has been visited
-		if (!maze->nodes[coord_1 - 1][coord_2].visited == 1){
-                if detectWall(NORTH) {return NORTH;}
+		if (maze->nodes[coord_1][coord_2 + 1].visited == 0){
+                if (!detectWall(NORTH) {return NORTH;}
 		}
 
 		// check if south has been visited
-		if (!maze->nodes[coord_1 + 1][coord_2].visited == 1){
-                if detectWall(SOUTH) {return SOUTH;}
+		if (maze->nodes[coord_1][coord_2 - 1].visited == 0){
+                if (!detectWall(SOUTH)) {return SOUTH;}
 		}
 
 		// check if east has been visited
-		if (!maze->nodes[coord_1][coord_2 + 1].visited == 1){
-                if detectWall(EAST) {return EAST;}
+		if (maze->nodes[coord_1 + 1][coord_2].visited == 0){
+                if (!detectWall(EAST)) {return EAST;}
 		}
 
 		// check if west has been visited
-		if (!maze->nodes[coord_1][coord_2 - 1].visited == 1){
+		if (maze->nodes[coord_1 - 1][coord_2].visited == 0){
                 if detectWall(WEST) {return WEST;}
 		}
 
