@@ -29,21 +29,30 @@ typedef struct DistSensors *DistSensors_T;
 // Return the distance reading from the given direction
 double getDist(DistSensors_T sensors, int direction) {
 	switch (direction) {
-	case 1:
-		return sensors.northOffset;
-	case 2:
-		return sensors.southhOffset;
-	case 3:
-		return sensors.westOffset;
-	case 4:
-		return sensors.eastOffset;
+	case NORTH:
+		return *sensors.northOffset;
+	case SOUTH:
+		return *sensors.southhOffset;
+	case WEST:
+		return *sensors.westOffset;
+	case EAST:
+		return *sensors.eastOffset;
 	}
 }
 
 // Calibrate the distance sensor by updating that offset
 // probably not used yet: will be used in the init() function later
 void calibrate(DistSensors_T sensors, double currentDist, int direction) {
-	// TODO
+	switch (direction) {
+	case NORTH:
+		*sensors.northOffset = currentDist;
+	case SOUTH:
+		*sensors.southOffset = currentDist;
+	case WEST:
+		*sensors.westOffset = currentDist;
+	case EAST:
+		*sensors.eastOffset = currentDist;
+	}
 }
 
 // initialization: return a DistSensors object
@@ -58,7 +67,7 @@ void reset(DistSensors_T) {
 }
 
 // return 1 if there is a wall, 0 if there is not a wall
-int detectWall(DistSensors_T sensors, int direction) {
-	if (getDist(sensors, direction) <= WALL) return 1;
+int detectWall(int direction) {
+	if (getDist(init, direction) <= WALL) return 1;
 	return 0;
 }
