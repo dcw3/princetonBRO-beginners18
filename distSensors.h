@@ -11,7 +11,7 @@ double const INIT_S_OFFSET = 0;
 double const INIT_W_OFFSET = 0;
 
 // max distance for detectWall
-// what should this be? or should this be 0
+// what should this be?
 double const WALL = 10;
 
 // this struct holds the offsets needed for each offset
@@ -56,8 +56,15 @@ void calibrate(DistSensors_T sensors, double currentDist, int direction) {
 }
 
 // initialization: return a DistSensors object
-DistSensors_T init() {
-	// TODO
+DistSensors_T init(double northDist, double southDist, double eastDist, double westDist) {
+	DistSensors sensors;
+
+	calibrate(sensors, northDist, NORTH);
+	calibrate(sensors, southDist, SOUTH);
+	calibrate(sensors, westDist, WEST);
+	calibrate(sensors, eastDist EAST);
+
+	return &sensor;
 }
 
 // reset the DistSensors object
