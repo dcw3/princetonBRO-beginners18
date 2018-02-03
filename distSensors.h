@@ -3,16 +3,29 @@ This module is used to interface with the distance sensors.
 */
 
 #include "globals.h"
+#include "vl6180x/VL6180X.h"
 
-// used as the initial distance offsets
-double const INIT_N_OFFSET = 0;
-double const INIT_E_OFFSET = 0;
-double const INIT_S_OFFSET = 0;
-double const INIT_W_OFFSET = 0;
+// threshold distance for detectWall (mm)
+double const WALL = 70;
 
-// max distance for detectWall
-// what should this be?
-double const WALL = 10;
+// declaring sensors
+VL6180X sensorNorth;
+VL6180X sensorSouth;
+VL6180X sensorWest;
+VL6180X sensorEast;
+
+// initializing sensors
+init(sensorNorth);
+init(sensorSouth);
+init(sensorEast);
+init(sensorWest);
+
+// initializes sensor
+void init(VL6180X sensor) {
+	sensor.init();
+	sensor.configureDefault();
+	sensor.setTimeout(500);
+}
 
 // this struct holds the offsets needed for each offset
 // feel free to add other stuff to this struct as well
@@ -27,44 +40,28 @@ struct DistSensors {
 typedef struct DistSensors *DistSensors_T;
 
 // Return the distance reading from the given direction
-double getDist(DistSensors_T sensors, int direction) {
+double getDist(int direction) {
 	switch (direction) {
 	case NORTH:
-		return *sensors.northOffset;
+		return sensorNorth.readRangeSingleMillimeters();
 	case SOUTH:
-		return *sensors.southhOffset;
+		return sensorSouth.readRangeSingleMillimeters();
 	case WEST:
-		return *sensors.westOffset;
+		return sensorWest.readRangeSingleMillimeters();
 	case EAST:
-		return *sensors.eastOffset;
+		return sensorEast.readRangeSingleMillimeters();
 	}
 }
 
 // Calibrate the distance sensor by updating that offset
 // probably not used yet: will be used in the init() function later
 void calibrate(DistSensors_T sensors, double currentDist, int direction) {
-	switch (direction) {
-	case NORTH:
-		*sensors.northOffset = currentDist;
-	case SOUTH:
-		*sensors.southOffset = currentDist;
-	case WEST:
-		*sensors.westOffset = currentDist;
-	case EAST:
-		*sensors.eastOffset = currentDist;
-	}
+	// TODO
 }
 
 // initialization: return a DistSensors object
-DistSensors_T init(double northDist, double southDist, double eastDist, double westDist) {
-	DistSensors sensors;
-
-	calibrate(sensors, northDist, NORTH);
-	calibrate(sensors, southDist, SOUTH);
-	calibrate(sensors, westDist, WEST);
-	calibrate(sensors, eastDist EAST);
-
-	return &sensor;
+DistSensors_T init() {
+	// TODO
 }
 
 // reset the DistSensors object
@@ -75,6 +72,6 @@ void reset(DistSensors_T) {
 
 // return 1 if there is a wall, 0 if there is not a wall
 int detectWall(int direction) {
-	if (getDist(init, direction) <= WALL) return 1;
-	return 0;
+	if (getDist(direction) <= WALL) { return 1; }
+	else { return 0; }
 }
