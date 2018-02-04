@@ -2,6 +2,9 @@
 This module manages the maze navigation.
 */
 
+// Link to documentation of stack array: https://playground.arduino.cc/Code/StackArray
+
+#import "StackArray.h"
 #import "globals.h"
 
 #define MAZE_SIZE 16
@@ -15,6 +18,7 @@ typedef struct Node *Node_T;
 struct Maze {
 	Node_T nodes[MAZE_SIZE][MAZE_SIZE];
 	// stack of path taken
+	StackArray <Node> stack;
 	// TODO: install/import Arduino stack library
 }
 
@@ -34,6 +38,8 @@ void updateMaze(Maze_T maze) {
 void updatePosition(Maze_T maze, int coord_1, int coord_2) {
 	// update nodes to make current position visited
 	maze->nodes[coord_1][coord_2].visited = 1;
+	// Update stack to make the path traceable
+	stack.push(maze->nodes[coord_1][coord_2]);
 }
 
 int getDirection(Maze_T maze, int coord_1, int coord_2) {
