@@ -3,16 +3,29 @@ This module is used to interface with the distance sensors.
 */
 
 #include "globals.h"
+#include "vl6180x/VL6180X.h"
 
-// used as the initial distance offsets
-double const INIT_N_OFFSET = 0;
-double const INIT_E_OFFSET = 0;
-double const INIT_S_OFFSET = 0;
-double const INIT_W_OFFSET = 0;
+// threshold distance for detectWall (mm)
+double const WALL = 70;
 
-// max distance for detectWall
-// what should this be? or should this be 0
-double const WALL = 10;
+// declaring sensors
+VL6180X sensorNorth;
+VL6180X sensorSouth;
+VL6180X sensorWest;
+VL6180X sensorEast;
+
+// initializing sensors
+init(sensorNorth);
+init(sensorSouth);
+init(sensorEast);
+init(sensorWest);
+
+// initializes sensor
+void init(VL6180X sensor) {
+	sensor.init();
+	sensor.configureDefault();
+	sensor.setTimeout(500);
+}
 
 // this struct holds the offsets needed for each offset
 // feel free to add other stuff to this struct as well
@@ -27,16 +40,16 @@ struct DistSensors {
 typedef struct DistSensors *DistSensors_T;
 
 // Return the distance reading from the given direction
-double getDist(DistSensors_T sensors, int direction) {
+double getDist(int direction) {
 	switch (direction) {
-	case 1:
-		return sensors.northOffset;
-	case 2:
-		return sensors.southhOffset;
-	case 3:
-		return sensors.westOffset;
-	case 4:
-		return sensors.eastOffset;
+	case NORTH:
+		return sensorNorth.readRangeSingleMillimeters();
+	case SOUTH:
+		return sensorSouth.readRangeSingleMillimeters();
+	case WEST:
+		return sensorWest.readRangeSingleMillimeters();
+	case EAST:
+		return sensorEast.readRangeSingleMillimeters();
 	}
 }
 
@@ -58,7 +71,7 @@ void reset(DistSensors_T) {
 }
 
 // return 1 if there is a wall, 0 if there is not a wall
-int detectWall(DistSensors_T sensors, int direction) {
-	if (getDist(sensors, direction) <= WALL) return 1;
-	return 0;
+int detectWall(int direction) {
+	if (getDist(direction) <= WALL) { return 1; }
+	else { return 0; }
 }
