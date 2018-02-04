@@ -3,7 +3,10 @@ This module manages the maze navigation.
 */
 
 // Link to documentation of stack array: https://playground.arduino.cc/Code/StackArray
+// ToDo: implement backtrace, make algorithm more efficient, make stack more efficient
 
+
+#import "distSensors.h"
 #import "StackArray.h"
 #import "globals.h"
 
@@ -19,7 +22,7 @@ struct Maze {
 	Node_T nodes[MAZE_SIZE][MAZE_SIZE];
 	// stack of path taken
 	StackArray <Node> stack;
-	// TODO: install/import Arduino stack library
+	// TODO: install/import Arduino stack library -> Done!
 }
 
 typedef struct Maze *Maze_T;
@@ -51,25 +54,25 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
 	// Assumption: robot starts from bottom right part of maze
 		// check if north has been visited
 		if (maze->nodes[coord_1][coord_2 + 1].visited == 0){
-                if (!detectWall(NORTH) {return getDirection[NORTH] = 1;}
+                if (!detectWall(NORTH) {getDirection[NORTH] = 1;}
 		}
 
 		// check if south has been visited
 		if (maze->nodes[coord_1][coord_2 - 1].visited == 0){
-                if (!detectWall(SOUTH)) {return getDirection[SOUTH] = 1;}
+                if (!detectWall(SOUTH)) {getDirection[SOUTH] = 1;}
 		}
 
 		// check if east has been visited
 		if (maze->nodes[coord_1 + 1][coord_2].visited == 0){
-                if (!detectWall(EAST)) {return getDirection[EAST] = 1;}
+                if (!detectWall(EAST)) {getDirection[EAST] = 1;}
 		}
 
 		// check if west has been visited
 		if (maze->nodes[coord_1 - 1][coord_2].visited == 0){
-                if detectWall(WEST) {return getDirection[WEST] = 1;}
+                if detectWall(WEST) {getDirection[WEST] = 1;}
 		}
 
-		// Back-traces
+		// Intelligent turn ->
 		if ((coord_1 < 8) && (getDirection[1] == 1)) {return NORTH;}
         else if (getDirection[2] == 1) {return SOUTH;}
 
