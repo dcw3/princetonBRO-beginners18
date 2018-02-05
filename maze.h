@@ -3,7 +3,7 @@ This module manages the maze navigation.
 */
 
 // Link to documentation of stack array: https://playground.arduino.cc/Code/StackArray
-// ToDo: implement backtrace, make algorithm more efficient, make stack more efficient
+// ToDo: implement backtrace, make algorithm more efficient, make stack more efficient, build case where everythign is zero
 
 
 #import "distSensors.h"
@@ -69,14 +69,24 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
 
 		// check if west has been visited
 		if (maze->nodes[coord_1 - 1][coord_2].visited == 0){
-                if detectWall(WEST) {getDirection[WEST] = 1;}
+                if (!detectWall(WEST)) {getDirection[WEST] = 1;}
 		}
 
 		// Intelligent turn ->
-		if ((coord_1 < 8) && (getDirection[1] == 1)) {return NORTH;}
-        else if (getDirection[2] == 1) {return SOUTH;}
+        if ((coord_2 < 8){
+            if (getDirection[0] == 1)) {return NORTH;}
+            if ((coord1 < 8) && (getDirection[2] == 1)){return EAST;}
+            if (getDirection[1] == 1)) {return South;}
+            if ((getDirection[3] == 1)) {return WEST;}
+        }
 
-        if ((coord_2 < 8) && (getDirection[3] == 1)) {return EAST;}
-        else if (getDirection[4] == 1) {return WEST;}
+        if ((coord_2 > 8){
+            if (getDirection[1] == 1)) {return SOUTH;}
+            if ((coord1 > 8) && (getDirection[3] == 1)){return WEST;}
+            if (getDirection[0] == 1)) {return NORTH;}
+            if ((getDirection[2] == 1)) {return EAST;}
+        }
+
+        // Implements back-trace
 
 }
