@@ -21,7 +21,8 @@ typedef struct Node *Node_T;
 struct Maze {
 	Node_T nodes[MAZE_SIZE][MAZE_SIZE];
 	// stack of path taken
-	StackArray <Node> stack;
+	StackArray <int> x_stack;
+	StackArray <int> y_stack;
 	// TODO: install/import Arduino stack library -> Done!
 }
 
@@ -42,7 +43,8 @@ void updatePosition(Maze_T maze, int coord_1, int coord_2) {
 	// update nodes to make current position visited
 	maze->nodes[coord_1][coord_2].visited = 1;
 	// Update stack to make the path traceable
-	stack.push(maze->nodes[coord_1][coord_2]);
+	x_stack.push(coord_1);
+	y_stack.push(coord_2);
 }
 
 int getDirection(Maze_T maze, int coord_1, int coord_2) {
@@ -88,5 +90,24 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
         }
 
         // Implements back-trace
+        x_stack.pop();
+        y_stack.pop();
+
+        int x = coord_1 - x_stack.pop();
+        int y = coord_2 - y_stack.pop();
+
+        switch(x){
+        case 1:
+            return WEST;
+        case -1:
+            return EAST;
+        }
+
+        switch(y){
+        case 1:
+            return SOUTH;
+        case -1:
+            return NORTH;
+        }
 
 }
