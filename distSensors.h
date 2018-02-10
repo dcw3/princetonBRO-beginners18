@@ -3,32 +3,44 @@ This module is used to interface with the distance sensors.
 */
 
 #include "globals.h"
-#include "vl6180x/VL6180X.h"
+#include <VL6180X.h>
 
 // threshold distance for detectWall (mm)
 double const WALL = 70;
 
 // declaring sensors
 VL6180X sensorNorth;
+/*
 VL6180X sensorSouth;
 VL6180X sensorWest;
 VL6180X sensorEast;
+*/
 
-// initializing sensors
-init(sensorNorth);
-init(sensorSouth);
-init(sensorEast);
-init(sensorWest);
 
-// initializes sensor
-void init(VL6180X sensor) {
-	sensor.init();
-	sensor.configureDefault();
-	sensor.setTimeout(500);
+// initializes sensors
+void initSensors() {
+	sensorNorth.init();
+	sensorNorth.configureDefault();
+	sensorNorth.setTimeout(500);
+	/*
+	case SOUTH:
+	sensorSouth.init();
+	sensorSouth.configureDefault();
+	sensorSouth.setTimeout(500);
+	case EAST:
+	sensorEast.init();
+	sensorEast.configureDefault();
+	sensorEast.setTimeout(500);
+	case WEST:
+	sensorWest.init();
+	sensorWest.configureDefault();
+	sensorWest.setTimeout(500);
+	*/
 }
 
 // this struct holds the offsets needed for each offset
 // feel free to add other stuff to this struct as well
+// unused
 struct DistSensors {
 	double northOffset = INIT_N_OFFSET;
 	double eastOffset = INIT_E_OFFSET;
@@ -44,24 +56,26 @@ double getDist(int direction) {
 	switch (direction) {
 	case NORTH:
 		return sensorNorth.readRangeSingleMillimeters();
-	case SOUTH:
+		/*
+		case SOUTH:
 		return sensorSouth.readRangeSingleMillimeters();
-	case WEST:
+		case WEST:
 		return sensorWest.readRangeSingleMillimeters();
-	case EAST:
+		case EAST:
 		return sensorEast.readRangeSingleMillimeters();
+		*/
 	}
 }
 
 // Calibrate the distance sensor by updating that offset
 // probably not used yet: will be used in the init() function later
 void calibrate(DistSensors_T sensors, double currentDist, int direction) {
-	// TODO
+	// TODO (unused)
 }
 
 // initialization: return a DistSensors object
 DistSensors_T init() {
-	// TODO
+	// TODO (unused)
 }
 
 // reset the DistSensors object
