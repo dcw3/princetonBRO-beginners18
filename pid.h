@@ -5,6 +5,7 @@ This module creates PID loop objects.
 #include "globals.h"
 
 struct PID {
+	//
 	double kP = 2, kI = 1, kD = 0.1;
 	double integral = 0;
 	double setPoint = 0;
