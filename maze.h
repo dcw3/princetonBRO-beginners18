@@ -56,7 +56,7 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
 	// Assumption: robot starts from bottom right part of maze
 		// check if north has been visited
 		if (maze->nodes[coord_1][coord_2 + 1].visited == 0){
-                if (!detectWall(NORTH) {getDirection[NORTH] = 1;}
+                if (!detectWall(NORTH)) {getDirection[NORTH] = 1;}
 		}
 
 		// check if south has been visited
@@ -76,38 +76,40 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
 
 		// Intelligent turn ->
         if ((coord_2 < 8){
-            if (getDirection[0] == 1)) {return NORTH;}
-            if ((coord1 < 8) && (getDirection[2] == 1)){return EAST;}
-            if (getDirection[1] == 1)) {return South;}
-            if ((getDirection[3] == 1)) {return WEST;}
+            if (getDirection[NORTH] == 1) {return NORTH;}
+            if ((coord1 < 8) && (getDirection[EAST] == 1)){return EAST;}
+            if (getDirection[SOUTH] == 1) {return SOUTH;}
+            if ((getDirection[WEST] == 1)) {return WEST;}
         }
 
-        if ((coord_2 > 8){
-            if (getDirection[1] == 1)) {return SOUTH;}
-            if ((coord1 > 8) && (getDirection[3] == 1)){return WEST;}
-            if (getDirection[0] == 1)) {return NORTH;}
-            if ((getDirection[2] == 1)) {return EAST;}
+        if ((coord_2 >= 8) {
+            if (getDirection[SOUTH] == 1) {return SOUTH;}
+            if ((coord1 >= 8) && (getDirection[WEST] == 1)){return WEST;}
+            if (getDirection[NORTH] == 1) {return NORTH;}
+            if ((getDirection[EAST] == 1)) {return EAST;}
         }
 
         // Implements back-trace
-        x_stack.pop();
-        y_stack.pop();
+        int a = x_stack.pop();
+        int b = y_stack.pop();
+
+        // assert(a == coord_1);
+        // assert(b == coord_2);
 
         int x = coord_1 - x_stack.pop();
         int y = coord_2 - y_stack.pop();
 
         switch(x){
-        case 1:
-            return WEST;
-        case -1:
-            return EAST;
+            case 1:
+                return WEST;
+            case -1:
+                return EAST;
         }
 
         switch(y){
-        case 1:
-            return SOUTH;
-        case -1:
-            return NORTH;
+            case 1:
+                return SOUTH;
+            case -1:
+                return NORTH;
         }
-
 }
