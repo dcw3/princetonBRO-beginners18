@@ -113,3 +113,21 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
                 return NORTH;
         }
 }
+
+void Return(){
+    // Dummy variables for data transfer
+    int x_coord[x_stack.count()];
+    int y_coord[y_stack.count()];
+    int counter = 0;
+    //Invert stack
+    while (!x_stack.isEmpty()){
+        x_coord[counter] = x_stack.pop();
+        y_coord[counter] = y_stack.pop();
+        counter++;
+    }
+    for (counter = 0 to (x_stack.count{}-1){
+        x_stack.push(x_coord[counter]);
+        y_stack.push(y_cood[counter]);
+    }
+
+}
