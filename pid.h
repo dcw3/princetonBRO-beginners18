@@ -6,28 +6,35 @@ This module creates PID loop objects.
 
 struct PID {
 	//
-	double kP = 2, kI = 1, kD = 0.1;
-	double integral = 0;
-	double setPoint = 0;
-	double prevMeasure = 0;
+	double kP ,kI, kD;
+	double integral;
+	double setPoint;
+	double prevMeasure;
 	// TODO: add flag to detect first update?
-}
+};
 
 typedef struct PID *PID_T;
-
 // return a PID loop object
 PID_T init(double kP, double kI, double kD) {
-	// TODO
-}
+	PID *p;
+	p->kP = kP;
+	p->kI = kI;
+	p->kD = kD;
+	return p;
+};
 
 // reset prevMeasure, setPoint, integral
 void reset(PID_T pid) {
-	// TODO
+	pid->integral = 0;// TODO
+	pid->setPoint = 0;
+	pid->prevMeasure = 0;
 }
 
 // update PID_T 
 double update(PID_T pid, double val, double dt) {
-	deriv = currentMeasure - prevMeasure;
+	double error = pid->setPoint - val;
+
+	//deriv = currentMeasure - prevMeasure;
 }
 
 // return PID value
