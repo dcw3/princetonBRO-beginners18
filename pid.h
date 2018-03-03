@@ -8,11 +8,9 @@ struct PID {
 	double kP ,kI, kD;
 	double integral;
 	double setPoint;
-	//double prevMeasure;
 	double derivative;
 	double prevError;
 	bool isFirstUpdate;
-	// TODO: add flag to detect first update?
 };
 
 typedef struct PID *PID_T;
@@ -22,7 +20,7 @@ PID_T init(double kP, double kI, double kD) {
 	p->kP = kP;
 	p->kI = kI;
 	p->kD = kD;
-	p->integral = 0;// TODO
+	p->integral = 0;
 	p->setPoint = 0;
 	p->derivative = 0;
 	p->prevError = 0;
@@ -30,7 +28,7 @@ PID_T init(double kP, double kI, double kD) {
 	return p;
 };
 
-// reset prevMeasure, setPoint, integral
+// reset prevMeasure, setPoint,integral, prevError, derivative
 void reset(PID_T pid) {
 	pid->integral = 0;// TODO
 	pid->setPoint = 0;
@@ -39,19 +37,16 @@ void reset(PID_T pid) {
 }
 
 // update PID_T 
-//double update(PID_T pid, double val, double dt) {
 void update(PID_T pid, double val, double dt) {
 	double error = pid->setPoint - val;
 	pid->integral = pid->integral + error * dt;
 	pid->derivative = (error - pid->prevError) / dt;
 	pid->prevError = error;
 	pid->isFirstUpdate = false;
-	//deriv = currentMeasure - prevMeasure;
 }
 
 // return PID value
 double getVal(PID_T pid) {
 	return (pid->kP * pid->prevError) + (pid->kI * pid->integral) + (pid->derivative * pid->kD);
-	// TODO: return PID value
 }
 
