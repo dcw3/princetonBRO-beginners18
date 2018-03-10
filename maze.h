@@ -4,6 +4,7 @@ This module manages the maze navigation.
 
 // Link to documentation of stack array: https://playground.arduino.cc/Code/StackArray
 // ToDo: implement backtrace, make algorithm more efficient, make stack more efficient, build case where everythign is zero
+// Link to Arduino stopwatch library: https://playground.arduino.cc/Code/StopWatchClass
 
 
 #import "distSensors.h"
@@ -29,9 +30,10 @@ struct Maze {
 typedef struct Maze *Maze_T;
 
 // initializations
-MAZE_T init() {
-	// ???
-	// do we need to init the nodes inside Maze?
+MAZE_T maze_init() {
+	Maze_T returnVal = (struct Maze*) malloc(sizeof(struct Maze));
+	struct Maze theMaze;
+	return (theMaze);
 }
 
 void updateMaze(Maze_T maze) {
@@ -55,79 +57,82 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
 
 	// Assumption: robot starts from bottom right part of maze
 		// check if north has been visited
-		if (maze->nodes[coord_1][coord_2 + 1].visited == 0){
-                if (!detectWall(NORTH)) {getDirection[NORTH] = 1;}
+    if (maze->nodes[coord_1][coord_2 + 1].visited == 0){
+            if (!detectWall(NORTH)) {getDirection[NORTH] = 1;}
 		}
 
 		// check if south has been visited
-		if (maze->nodes[coord_1][coord_2 - 1].visited == 0){
-                if (!detectWall(SOUTH)) {getDirection[SOUTH] = 1;}
+	if (maze->nodes[coord_1][coord_2 - 1].visited == 0){
+            if (!detectWall(SOUTH)) {getDirection[SOUTH] = 1;}
 		}
 
 		// check if east has been visited
-		if (maze->nodes[coord_1 + 1][coord_2].visited == 0){
-                if (!detectWall(EAST)) {getDirection[EAST] = 1;}
+	if (maze->nodes[coord_1 + 1][coord_2].visited == 0){
+            if (!detectWall(EAST)) {getDirection[EAST] = 1;}
 		}
 
 		// check if west has been visited
-		if (maze->nodes[coord_1 - 1][coord_2].visited == 0){
-                if (!detectWall(WEST)) {getDirection[WEST] = 1;}
+	if (maze->nodes[coord_1 - 1][coord_2].visited == 0){
+            if (!detectWall(WEST)) {getDirection[WEST] = 1;}
 		}
 
 		// Intelligent turn ->
-        if ((coord_2 < 8){
-            if (getDirection[NORTH] == 1) {return NORTH;}
-            if ((coord1 < 8) && (getDirection[EAST] == 1)){return EAST;}
-            if (getDirection[SOUTH] == 1) {return SOUTH;}
-            if ((getDirection[WEST] == 1)) {return WEST;}
+    if (coord_2 < 8){
+        if (getDirection[NORTH] == 1) {return NORTH;}
+        if ((coord1 < 8) && (getDirection[EAST] == 1)){return EAST;}
+        if (getDirection[SOUTH] == 1) {return SOUTH;}
+        if ((getDirection[WEST] == 1)) {return WEST;}
         }
 
-        if ((coord_2 >= 8) {
-            if (getDirection[SOUTH] == 1) {return SOUTH;}
-            if ((coord1 >= 8) && (getDirection[WEST] == 1)){return WEST;}
-            if (getDirection[NORTH] == 1) {return NORTH;}
-            if ((getDirection[EAST] == 1)) {return EAST;}
+    if (coord_2 >= 8) {
+        if (getDirection[SOUTH] == 1) {return SOUTH;}
+        if ((coord1 >= 8) && (getDirection[WEST] == 1)){return WEST;}
+        if (getDirection[NORTH] == 1) {return NORTH;}
+        if ((getDirection[EAST] == 1)) {return EAST;}
         }
 
         // Implements back-trace
-        int a = x_stack.pop();
-        int b = y_stack.pop();
+    int a = x_stack.pop();
+    int b = y_stack.pop();
 
         // assert(a == coord_1);
         // assert(b == coord_2);
 
-        int x = coord_1 - x_stack.pop();
-        int y = coord_2 - y_stack.pop();
+    int x = coord_1 - x_stack.pop();
+    int y = coord_2 - y_stack.pop();
 
-        switch(x){
-            case 1:
-                return WEST;
-            case -1:
-                return EAST;
+    switch(x){
+       case 1:
+            return WEST;
+       case -1:
+            return EAST;
         }
 
-        switch(y){
-            case 1:
-                return SOUTH;
-            case -1:
-                return NORTH;
-        }
+    switch(y){
+        case 1:
+           return SOUTH;
+        case -1:
+           return NORTH;
+    }
 }
 
-void Return(){
-    // Dummy variables for data transfer
-    int x_coord[x_stack.count()];
-    int y_coord[y_stack.count()];
-    int counter = 0;
-    //Invert stack
-    while (!x_stack.isEmpty()){
-        x_coord[counter] = x_stack.pop();
-        y_coord[counter] = y_stack.pop();
-        counter++;
-    }
-    for (counter = 0 to (x_stack.count{}-1){
-        x_stack.push(x_coord[counter]);
-        y_stack.push(y_cood[counter]);
+}
+int Return(int x, int y){
+    // This code helps return to the start from the center of the maze
+    //int x_coord, y_coord;
+    int coord;
+        while (!x_stack.isEmpty()){
+        if (x_stack.peek()- x == 0){
+            coord = y_stack.pop;
+            if ((y - coord) > 0){return NORTH}
+            else {return SOUTH};
+        }
+        else if (y_stack.peek()- y == 0){
+            coord = x_stack.pop;
+            if ((x - coord) > 0){return EAST}
+            else {return WEST};
+        }
+
     }
 
 }
