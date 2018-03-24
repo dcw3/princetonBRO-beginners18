@@ -115,23 +115,20 @@ int ReturnToOtherCheckpoint(Maze_T maze, int x, int y){
     // This code helps return to the start from the center of the maze or vice-versa
     //int x_coord, y_coord;
 
-    StackArray <int> x_stack_new;
-    StackArray <int> y_stack_new;
+
     int coord;
 
-    while (!(maze->x_stack.isEmpty())) {
+    if(!(maze->x_stack.isEmpty())) {
         if ((maze->x_stack.peek()) == x) {
             coord = maze->y_stack.pop();
-            y_stack_new.push(coord);
-            x_stack_new.push(maze->x_stack.pop());
+            (maze->x_stack.pop());
             if (y > coord) {return NORTH}
             else {return SOUTH};
 
         }
         else if ((maze->y_stack.peek())- y == 0){
             coord = maze->x_stack.pop();
-            x_stack_new.push(coord);
-            y_stack_new.push(maze->y_stack.pop());
+            (maze->y_stack.pop());
             if (x > coord) {return EAST}
             else {return WEST};
         }

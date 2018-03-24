@@ -12,6 +12,9 @@ void setup() {
   //int coord1 = 0, coord2 = 0,
   int d = -1;
   int centerFound = 0;
+
+  StackArray <int> x_stack_new;
+  StackArray <int> y_stack_new;
 }
 void loop() {
   // put your main code here, to run repeatedly:
@@ -19,12 +22,7 @@ void loop() {
   if (((GetCoord1() == 7) || (GetCoord1() == 8)) && ((GetCoord2() == 7) || (GetCoord2() == 8))) {
   //implement back-trace
     centerFound = 1;
-    while ((GetCoord1() != 0)&&(GetCoord2() != 0)){
-        d = ReturnToOtherCheckpoint(maze, GetCoord1(), GetCoord2());
-        moved(d);
-        //updatePosition(maze, GetCoord1(), GetCoord2());
-
-    }
+    WillYouPleaseReturnForGodsSake();
   }
   if (centerFound = 0){
     d = getDirection(maze, GetCoord1(), GetCoord2());
@@ -33,9 +31,20 @@ void loop() {
   }
 
   if (centerFound = 1){
-        d = ReturnToOtherCheckpoint(maze, GetCoord1(), GetCoord2());
-        moved(d);
+        WillYouPleaseReturnForGodsSake();
   }
 }
+
+void WillYouPleaseReturnForGodsSake(){
+    while ((GetCoord1() != 0)&&(GetCoord2() != 0)){
+        x_stack_new.push(GetCoord1());
+        x_stack_new.push(GetCoord2());
+        d = ReturnToOtherCheckpoint(maze, GetCoord1(), GetCoord2());
+        moved(d);
+    }
+    x_stack_new.push(GetCoord1());
+    x_stack_new.push(GetCoord2());
+}
+
 
 #endif // MAIN2_H_INCLUDED
