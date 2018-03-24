@@ -4,11 +4,10 @@ This module is used to interface with the distance sensors.
 
 #include "globals.h"
 #include "vl6180x.h/VL6180X.h"
-#include <Wire.h>
+#include <Arduino.h>
 
 // pins connected to VL6180 GPIO used to hold sensor in reset
-#define NORTH_SHUTDOWN 11
-#define SOUTH_SHUTDOWN 10
+#define NORTH_SHUTDOWN 10
 #define EAST_SHUTDOWN 9
 #define WEST_SHUTDOWN 8 
 
@@ -43,14 +42,12 @@ pinMode(EAST_SHUTDOWN, OUTPUT);
 
 // hold each sensor in shutdown initially
 digitalWrite(NORTH_SHUTDOWN, LOW);
-digitalWrite(SOUTH_SHUTDOWN, LOW);
 digitalWrite(WEST_SHUTDOWN, LOW);
 digitalWrite(EAST_SHUTDOWN, LOW);
 delay(10);
 
 // wake sensors and change address one by one
-digitalWrite(SOUTH_SHUTDOWN, HIGH);
-sensorSouth.setAddress(0x25);
+sensorSouth.setAddress(0x25); // SOUTH is the first to change - doesnt need to be in reset
 delay(10);
 digitalWrite(WEST_SHUTDOWN, HIGH);
 sensorWest.setAddress(0x25);
