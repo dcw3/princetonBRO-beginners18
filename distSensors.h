@@ -3,7 +3,7 @@ This module is used to interface with the distance sensors.
 */
 
 #include "globals.h"
-#include "vl6180x.h/VL6180X.h"
+#include <VL6180X.h>
 #include <Arduino.h>
 
 // pins connected to VL6180 GPIO used to hold sensor in reset
@@ -27,41 +27,42 @@ void initSensor(VL6180X sensor) {
 	sensor.setTimeout(500);
 }
 
-// setup
-// declaring sensors
+// sensors
 VL6180X sensorNorth;
 VL6180X sensorSouth;
 VL6180X sensorWest;
 VL6180X sensorEast;
 
-// shutdown pins
-pinMode(NORTH_SHUTDOWN, OUTPUT);
-pinMode(SOUTH_SHUTDOWN, OUTPUT);
-pinMode(WEST_SHUTDOWN, OUTPUT);
-pinMode(EAST_SHUTDOWN, OUTPUT);
+// setup code (called in setup()?)
+void setupSensors() {
+  // shutdown pins
+  pinMode(NORTH_SHUTDOWN, OUTPUT);
+  pinMode(WEST_SHUTDOWN, OUTPUT);
+  pinMode(EAST_SHUTDOWN, OUTPUT);
 
-// hold each sensor in shutdown initially
-digitalWrite(NORTH_SHUTDOWN, LOW);
-digitalWrite(WEST_SHUTDOWN, LOW);
-digitalWrite(EAST_SHUTDOWN, LOW);
-delay(10);
+  // hold each sensor in shutdown initially
+  digitalWrite(NORTH_SHUTDOWN, LOW);
+  digitalWrite(WEST_SHUTDOWN, LOW);
+  digitalWrite(EAST_SHUTDOWN, LOW);
+  delay(10);
 
-// wake sensors and change address one by one
-sensorSouth.setAddress(0x25); // SOUTH is the first to change - doesnt need to be in reset
-delay(10);
-digitalWrite(WEST_SHUTDOWN, HIGH);
-sensorWest.setAddress(0x25);
-delay(10);
-digitalWrite(EAST_SHUTDOWN, HIGH);
-sensorEast.setAddress(0x27);
-delay(10);
-digitalWrite(NORTH_SHUTDOWN, HIGH); // NORTH maintains default address
+  // wake sensors and change address one by one
+  sensorSouth.setAddress(0x25); // SOUTH is the first to change - doesnt need to be in reset
+  delay(10);
+  digitalWrite(WEST_SHUTDOWN, HIGH);
+  sensorWest.setAddress(0x25);
+  delay(10);
+  digitalWrite(EAST_SHUTDOWN, HIGH);
+  sensorEast.setAddress(0x27);
+  delay(10);
+  digitalWrite(NORTH_SHUTDOWN, HIGH); // NORTH maintains default address
 
-// init all sensors
-initSensor(sensorNorth);
-initSensor(sensorSouth);
-initSensor(sensorWest);
-initSensor(sensorEast);
+  // init all sensors
+  initSensor(sensorNorth);
+  initSensor(sensorSouth);
+  initSensor(sensorWest);
+  initSensor(sensorEast);
+}
 
 // this struct holds the offsets needed for each offset
 // feel free to add other stuff to this struct as well
