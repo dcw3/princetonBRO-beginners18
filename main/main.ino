@@ -10,13 +10,13 @@ void setup() {
   Maze_T maze = maze_init();
   Movement_T movement = movement_init();
   //int coord1 = 0, coord2 = 0,
-  d = -1;
+  int d = -1;
   int centerFound = 0;
 }
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (((GetCoord1() == 7) || (GetCoord2() == 8)) && ((GetCoord1() == 7) || (GetCoord2() == 8))) {
+  if (((GetCoord1() == 7) || (GetCoord1() == 8)) && ((GetCoord2() == 7) || (GetCoord2() == 8))) {
   //implement back-trace
     centerFound = 1;
     while ((GetCoord1() != 0)&&(GetCoord2() != 0)){
@@ -36,6 +36,6 @@ void loop() {
         d = ReturnToOtherCheckpoint(maze, GetCoord1(), GetCoord2());
         moved(d);
   }
-
+}
 
 #endif // MAIN2_H_INCLUDED

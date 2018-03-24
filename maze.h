@@ -111,7 +111,6 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
     }
 }
 
-}
 int ReturnToOtherCheckpoint(Maze_T maze, int x, int y){
     // This code helps return to the start from the center of the maze or vice-versa
     //int x_coord, y_coord;
@@ -120,26 +119,21 @@ int ReturnToOtherCheckpoint(Maze_T maze, int x, int y){
     StackArray <int> y_stack_new;
     int coord;
 
-        while (!(maze->x_stack.isEmpty()){
-        if ((maze->x_stack.peek())- x == 0){
-            coord = (maze->y_stack.pop());
-            {
+    while (!(maze->x_stack.isEmpty())) {
+        if ((maze->x_stack.peek()) == x) {
+            coord = maze->y_stack.pop();
             y_stack_new.push(coord);
             x_stack_new.push(maze->x_stack.pop());
-            }
-            if ((y - coord) > 0){return NORTH}
+            if (y > coord) {return NORTH}
             else {return SOUTH};
 
         }
         else if ((maze->y_stack.peek())- y == 0){
-            coord = (maze->x_stack.pop);
-            {
+            coord = maze->x_stack.pop();
             x_stack_new.push(coord);
             y_stack_new.push(maze->y_stack.pop());
-            }
-            if ((x - coord) > 0){return EAST}
+            if (x > coord) {return EAST}
             else {return WEST};
-
         }
 
     }
