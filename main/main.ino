@@ -7,25 +7,44 @@
 
 void setup() {
   // put your setup code here, to run once:
-  Maze_T maze = init();
+  Maze_T maze = maze_init();
   Movement_T movement = movement_init();
-  int coord1 = 0, c oord2 = 0, d = -1;
+  //int coord1 = 0, coord2 = 0,
+  int d = -1;
+  int centerFound = 0;
+
+  StackArray <int> x_stack_new;
+  StackArray <int> y_stack_new;
 }
 void loop() {
   // put your main code here, to run repeatedly:
 
-  if (((coord1 == 7) || (coord1 == 8)) && ((coord2 == 7) || (coord2 == 8))) {
+  if (((GetCoord1() == 7) || (GetCoord1() == 8)) && ((GetCoord2() == 7) || (GetCoord2() == 8))) {
   //implement back-trace
-    while ((coord1 != 0)&&(coord2 != 0){
-        d = getDirection(maze, coord1, coord2);
-        moved(d);
-        updatePosition(maze, GetCoord1(), GetCoord1());
-    }
+    centerFound = 1;
+    WillYouPleaseReturnForGodsSake();
+  }
+  if (centerFound = 0){
+    d = getDirection(maze, GetCoord1(), GetCoord2());
+    moved(d);
+    updatePosition(maze, GetCoord1(), GetCoord2());
   }
 
-  d = getDirection(maze, coord1, coord2);
-  moved(d);
-  updatePosition(maze, GetCoord1(), GetCoord1());
+  if (centerFound = 1){
+        WillYouPleaseReturnForGodsSake();
+  }
+}
+
+void WillYouPleaseReturnForGodsSake(){
+    while ((GetCoord1() != 0)&&(GetCoord2() != 0)){
+        x_stack_new.push(GetCoord1());
+        x_stack_new.push(GetCoord2());
+        d = ReturnToOtherCheckpoint(maze, GetCoord1(), GetCoord2());
+        moved(d);
+    }
+    x_stack_new.push(GetCoord1());
+    x_stack_new.push(GetCoord2());
+}
 
 
 #endif // MAIN2_H_INCLUDED

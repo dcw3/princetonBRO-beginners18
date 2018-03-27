@@ -13,7 +13,7 @@ const double circumference_up = 38*3.1415926536/1000; // in meters
 const int forwardAPin = 2;
 const int forwardBPin = 4;
 const int leftAPin = 3;
-const int leftBPin = 5;
+const int leftBPin = 8;
 
 Encoder upDisp(forwardAPin, forwardBPin);
 Encoder leftDisp(leftAPin, leftBPin);

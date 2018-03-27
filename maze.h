@@ -32,13 +32,8 @@ typedef struct Maze *Maze_T;
 // initializations
 MAZE_T maze_init() {
 	Maze_T returnVal = (struct Maze*) malloc(sizeof(struct Maze));
-	struct Maze theMaze;
-	return (theMaze);
-}
-
-void updateMaze(Maze_T maze) {
-	// maze->nodes[coord_1][coord_2].northWall = 1;
-	// skip for now, not needed
+//	struct Maze theMaze;
+	return (returnVal);
 }
 
 void updatePosition(Maze_T maze, int coord_1, int coord_2) {
@@ -116,20 +111,25 @@ int getDirection(Maze_T maze, int coord_1, int coord_2) {
     }
 }
 
-}
-int Return(int x, int y){
-    // This code helps return to the start from the center of the maze
+int ReturnToOtherCheckpoint(Maze_T maze, int x, int y){
+    // This code helps return to the start from the center of the maze or vice-versa
     //int x_coord, y_coord;
+
+
     int coord;
-        while (!x_stack.isEmpty()){
-        if (x_stack.peek()- x == 0){
-            coord = y_stack.pop;
-            if ((y - coord) > 0){return NORTH}
+
+    if(!(maze->x_stack.isEmpty())) {
+        if ((maze->x_stack.peek()) == x) {
+            coord = maze->y_stack.pop();
+            (maze->x_stack.pop());
+            if (y > coord) {return NORTH}
             else {return SOUTH};
+
         }
-        else if (y_stack.peek()- y == 0){
-            coord = x_stack.pop;
-            if ((x - coord) > 0){return EAST}
+        else if ((maze->y_stack.peek())- y == 0){
+            coord = maze->x_stack.pop();
+            (maze->y_stack.pop());
+            if (x > coord) {return EAST}
             else {return WEST};
         }
 
