@@ -4,8 +4,14 @@ This module is used to interface with the distance sensors.
 
 #include "globals.h"
 #include <VL6180X.h>
+#include <Arduino.h>
 
-// initial offsets (unused in this implementation)
+// pins connected to VL6180 GPIO used to hold sensor in reset
+#define NORTH_SHUTDOWN 10
+#define EAST_SHUTDOWN 9
+#define WEST_SHUTDOWN 8 
+
+// initial offsets (unused)
 const double INIT_N_OFFSET = 0;
 const double INIT_S_OFFSET = 0;
 const double INIT_E_OFFSET = 0;
@@ -14,34 +20,48 @@ const double INIT_W_OFFSET = 0;
 // threshold distance for detectWall (mm)
 double const WALL = 70;
 
-// declaring sensors
+// initializes sensor
+void initSensor(VL6180X sensor) {
+	sensor.init();
+	sensor.configureDefault();
+	sensor.setTimeout(500);
+}
+
+// sensors
 VL6180X sensorNorth;
-/*
 VL6180X sensorSouth;
 VL6180X sensorWest;
 VL6180X sensorEast;
-*/
 
+// setup code (called in setup()?)
+void setupSensors() {
+  // shutdown pins
+  pinMode(NORTH_SHUTDOWN, OUTPUT);
+  pinMode(WEST_SHUTDOWN, OUTPUT);
+  pinMode(EAST_SHUTDOWN, OUTPUT);
 
-// initializes sensors
-void initSensors() {
-	sensorNorth.init();
-	sensorNorth.configureDefault();
-	sensorNorth.setTimeout(500);
-	/*
-	case SOUTH:
-	sensorSouth.init();
-	sensorSouth.configureDefault();
-	sensorSouth.setTimeout(500);
-	case EAST:
-	sensorEast.init();
-	sensorEast.configureDefault();
-	sensorEast.setTimeout(500);
-	case WEST:
-	sensorWest.init();
-	sensorWest.configureDefault();
-	sensorWest.setTimeout(500);
-	*/
+  // hold each sensor in shutdown initially
+  digitalWrite(NORTH_SHUTDOWN, LOW);
+  digitalWrite(WEST_SHUTDOWN, LOW);
+  digitalWrite(EAST_SHUTDOWN, LOW);
+  delay(10);
+
+  // wake sensors and change address one by one
+  sensorSouth.setAddress(0x25); // SOUTH is the first to change - doesnt need to be in reset
+  delay(10);
+  digitalWrite(WEST_SHUTDOWN, HIGH);
+  sensorWest.setAddress(0x25);
+  delay(10);
+  digitalWrite(EAST_SHUTDOWN, HIGH);
+  sensorEast.setAddress(0x27);
+  delay(10);
+  digitalWrite(NORTH_SHUTDOWN, HIGH); // NORTH maintains default address
+
+  // init all sensors
+  initSensor(sensorNorth);
+  initSensor(sensorSouth);
+  initSensor(sensorWest);
+  initSensor(sensorEast);
 }
 
 // this struct holds the offsets needed for each offset
@@ -62,14 +82,12 @@ double getDist(int direction) {
 	switch (direction) {
 	case NORTH:
 		return sensorNorth.readRangeSingleMillimeters();
-		/*
-		case SOUTH:
+	case SOUTH:
 		return sensorSouth.readRangeSingleMillimeters();
-		case WEST:
+	case WEST:
 		return sensorWest.readRangeSingleMillimeters();
-		case EAST:
+	case EAST:
 		return sensorEast.readRangeSingleMillimeters();
-		*/
 	}
 }
 

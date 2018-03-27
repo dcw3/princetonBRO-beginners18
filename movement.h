@@ -33,28 +33,29 @@ void Useless_move(int direction, double dt){
 
 }
 
-void move1(int direction){
+void moved(int direction){
     PID_T pid1 = init(1,2,3);
-
-    double prevTime = time.getTime(), currentTime=0;
+    StopWatch sw_millis;
+    sw_millis.start();
+    double prevTime = sw_millis.(), currentTime=0;
     double final_dist = getCumulDist(direction) + one_square;
     while (final_dist - getCumulDist(direction) != 0){
         // assume we imported time already
-        currentTime = time.getTime()
+        currentTime = sw_millis.elapsed()
         // Call setPoint, update (where they currently are, how long it has been since the previous measurement), getVal() -> the power to the motor
         setPoint(pid1, final_dist);
         update(pid1,getCumulDist(direction), currentTime-prevTime);
         // Pass getVal() to motors
         setMotor(direction,getVal(pid1));
-        prevTime=currentTime;
+        prevTime = currentTime;
     }
     pid1->reset()
 }
 
 int GetCoord1(){
-    return ((int)getCumulDist(NORTH)/one_square);
+    return ((int)(getCumulDist(NORTH)-getCumulDist(SOUTH))/one_square);
 }
 
 int GetCoord2(){
-    return ((int)getCumulDist(EAST)/one_square);
+    return ((int)(getCumulDist(EAST)-getCumulDist(WEST))/one_square);
 }
