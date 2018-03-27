@@ -29,12 +29,12 @@ PID_T init(double kP, double kI, double kD) {
 };
 
 void setPoint(PID_T pid, double setpoint_value) {
-	pid->setPoint = setpoint_value;// TODO
+	pid->setPoint = setpoint_value;
 }
 
 // reset prevMeasure, setPoint,integral, prevError, derivative
 void reset(PID_T pid) {
-	pid->integral = 0;// TODO
+	pid->integral = 0;
 	pid->setPoint = 0;
 	pid->derivative = 0;
 	pid->prevError = 0;
@@ -51,6 +51,6 @@ void update(PID_T pid, double val, double dt) {
 
 // return PID value
 double getVal(PID_T pid) {
-	return (pid->kP * pid->prevError) + (pid->kI * pid->integral) + (pid->derivative * pid->kD);
+	return (pid->kP * pid->prevError) + (pid->kI * pid->integral);// + (pid->derivative * pid->kD);
 }
 
