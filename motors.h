@@ -8,18 +8,6 @@ then we'll need to add a struct, as is done in DistSensors.h
 // globals includes the 4 integer directions
 #include "globals.h"
 
-// double is power: should be between -1 and 1
-// (1 being max power, -1 being max power in the opposite direction)
-void setMotor(int direction, double power) {
-	// TODO
-}
-
-// any initialization that's needed
-void init() {
-
-}
-
-// reset anything that needs to be reset?
-reset() {
-
-}
+// Decide which method to power the motors
+// #include "motors_with_driver.h"
+// #include "motors_without_driver.h"
