@@ -1,7 +1,7 @@
 /*
 This module is used to interface with the motors.
 
-NOTE: Hasn't been tested yet.
+NOTE: Hasn't been tested yet. But it does compile.
 
 */
 
