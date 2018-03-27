@@ -26,7 +26,7 @@ void northMove(double power) {
     power = power * scaleA;
     if (power < 0) {
         analogWrite(motorAPinA, 0);
-        analogWrite(motorAPinB, (int)(power * maxPower));
+        analogWrite(motorAPinB, (int)(power * maxPower * -1));
     } else {
         analogWrite(motorAPinA, (int)(power * maxPower));
         analogWrite(motorAPinB, 0);
@@ -37,7 +37,7 @@ void eastMove(double power) {
     power = power * scaleB;
     if (power < 0) {
         analogWrite(motorBPinA, 0);
-        analogWrite(motorBPinB, (int)(power * maxPower));
+        analogWrite(motorBPinB, (int)(power * maxPower * -1));
     } else {
         analogWrite(motorBPinA, (int)(power * maxPower));
         analogWrite(motorBPinB, 0);
