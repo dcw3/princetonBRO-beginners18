@@ -18,6 +18,8 @@ void reset(double value_for_one_square){
 	m1->total = 0;
 	m1->one_square = value_for_one_square;
 }
+
+
 void Useless_move(int direction, double dt){
 
     double final_dist = getCumulDist(direction) + one_square;
@@ -34,11 +36,13 @@ void Useless_move(int direction, double dt){
 }
 
 void moved(int direction){
-    PID_T pid1 = init(1,2,3);
+    PID_T pid1 = init(1,2,3); // Needs to be changed
     StopWatch sw_millis;
     sw_millis.start();
-    double prevTime = sw_millis.(), currentTime=0;
+    double prevTime = sw_millis.(); currentTime=0;
     double final_dist = getCumulDist(direction) + one_square;
+
+    // This loop MOVES the robot
     while (final_dist - getCumulDist(direction) != 0){
         // assume we imported time already
         currentTime = sw_millis.elapsed()

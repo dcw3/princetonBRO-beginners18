@@ -13,8 +13,6 @@ void setup() {
   int d = -1;
   int centerFound = 0;
 
-  StackArray <int> x_stack_new;
-  StackArray <int> y_stack_new;
 }
 void loop() {
   // put your main code here, to run repeatedly:
@@ -36,14 +34,18 @@ void loop() {
 }
 
 void WillYouPleaseReturnForGodsSake(){
+  StackArray <int> x_stack_new;
+  StackArray <int> y_stack_new;
+  
     while ((GetCoord1() != 0)&&(GetCoord2() != 0)){
         x_stack_new.push(GetCoord1());
         x_stack_new.push(GetCoord2());
         d = ReturnToOtherCheckpoint(maze, GetCoord1(), GetCoord2());
         moved(d);
     }
-    x_stack_new.push(GetCoord1());
-    x_stack_new.push(GetCoord2());
+
+    maze->x_stack = x_stack_new;
+    maze->y_stack = y_stack_new;
 }
 
 
