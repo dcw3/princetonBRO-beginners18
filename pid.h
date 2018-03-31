@@ -2,6 +2,9 @@
 This module creates PID loop objects.
 */
 
+#ifndef PID_FILE
+#define PID_FILE
+
 #include "globals.h"
 
 struct PID {
@@ -54,3 +57,4 @@ double getVal(PID_T pid) {
 	return (pid->kP * pid->prevError) + (pid->kI * pid->integral);// + (pid->derivative * pid->kD);
 }
 
+#endif

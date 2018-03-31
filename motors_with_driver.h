@@ -5,6 +5,9 @@ NOTE: Hasn't been tested yet. But it does compile.
 
 */
 
+#ifndef MOTORS_WITH_DRIVERS
+#define MOTORS_WITH_DRIVERS
+
 // globals includes the 4 integer directions
 #include "globals.h"
 
@@ -76,3 +79,5 @@ void reset() {
     analogWrite(motorBPinA, 0);
     analogWrite(motorBPinB, 0);
 }
+
+#endif

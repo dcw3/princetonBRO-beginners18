@@ -3,6 +3,9 @@ This module interfaces with the encoders.
  This is written in C++ as it works with the Arduino an is also much easier to work with.
 */
 
+#ifndef ENCODERS_SIMPLE_FILE
+#define ENCODERS_SIMPLE_FILE
+
 #include "globals.h"
 #include "Encoder.h"
 
@@ -43,3 +46,24 @@ double getCumulDist(int direction) {
     }
     return 1.0/0.0;
 }
+
+void Rewrite(double val, int direction) {
+ val = abs(val / 1000);
+  switch(direction) {
+   case NORTH  :
+       upDisp.write(upDisp.read() + val/(rev_per_click*circumference_up));
+
+    case EAST  :
+      leftDisp.write(leftDisp.read() - val/(rev_per_click*circumference_up));
+
+      case SOUTH  :
+          upDisp.write(upDisp.read() - val/(rev_per_click*circumference_up));
+
+      case WEST  :
+          leftDisp.write(leftDisp.read() + val/(rev_per_click*circumference_up));
+    }
+
+
+}
+
+#endif
