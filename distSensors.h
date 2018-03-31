@@ -1,6 +1,9 @@
 /*
 This module is used to interface with the distance sensors.
 */
+#ifndef DISTSENSORS_FILE
+#define DISTSENSORS_FILE
+
 #include "VL6180X.h"
 #include "globals.h"
 #include <Arduino.h>
@@ -117,3 +120,5 @@ int detectWall(int direction) {
 	if (getDist(direction) <= WALL) { return 1; }
 	else { return 0; }
 }
+
+#endif

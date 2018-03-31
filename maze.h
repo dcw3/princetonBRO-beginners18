@@ -6,6 +6,8 @@ This module manages the maze navigation.
 // ToDo: implement backtrace, make algorithm more efficient, make stack more efficient, build case where everythign is zero
 // Link to Arduino stopwatch library: https://playground.arduino.cc/Code/StopWatchClass
 
+#ifndef MAZE_FILE
+#define MAZE_FILE
 
 #import "distSensors.h"
 #import "StackArray.h"
@@ -136,3 +138,5 @@ int ReturnToOtherCheckpoint(Maze_T maze, int x, int y){
     }
 
 }
+
+#endif

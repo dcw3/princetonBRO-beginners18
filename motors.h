@@ -6,6 +6,10 @@ then we'll need to add a struct, as is done in DistSensors.h
 */
 
 // globals includes the 4 integer directions
+
+#ifndef MOTORS_FILE
+#define MOTORS_FILE
+
 #include "globals.h"
 
 // double is power: should be between -1 and 1
@@ -61,3 +65,5 @@ void moveRightLeft(int speed, int reverse)
 	digitalWrite(in3Pin, !reverse); 
     digitalWrite(in4Pin, reverse); 
 }
+
+#endif
