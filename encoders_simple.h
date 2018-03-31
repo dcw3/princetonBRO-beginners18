@@ -8,8 +8,8 @@ This module interfaces with the encoders.
 
 //const double PI = 3.1415926536;
 const double rev_per_click = 1.0/12.0; // Confirmed correct
-const double circumference_left = 48*3.1415926536/1000; // in meters
-const double circumference_up = 38*3.1415926536/1000; // in meters
+const double circumference_left = 48*3.1415926536; // in mm
+const double circumference_up = 38*3.1415926536; // in mm
 const int forwardAPin = 2;
 const int forwardBPin = 4;
 const int leftAPin = 3;

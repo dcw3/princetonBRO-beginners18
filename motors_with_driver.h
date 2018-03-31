@@ -18,7 +18,7 @@ const int motorAPinB = 7;
 const int motorBPinA = 8;
 const int motorBPinB = 9;
 
-const int scaleA = 1; // Motors not same speed? Change these to scale them. Must be less than one.
+const int scaleA = 1; // Motors not same speed? Change these to scale them. Must be one or less.
 const int scaleB = 1;
 
 // Make it easier
