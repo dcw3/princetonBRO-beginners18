@@ -30,7 +30,7 @@ void changeAddress(VL6180X* sensor, int address) {
 // sensors
 VL6180X sensorNorth;
 VL6180X sensorSouth;
-// VL6180X sensorWest;
+VL6180X sensorWest;
 VL6180X sensorEast;
 
 void setupSensors() {
@@ -56,20 +56,21 @@ void setupSensors() {
   // wake sensors and change address one by one
   changeAddress(&sensorSouth, 0x23);
   delay(10);
-  /*
+ 
   digitalWrite(WEST_SHUTDOWN, HIGH);
   changeAddress(&sensorWest,0x25);
   delay(10);
-  */
+ 
   digitalWrite(EAST_SHUTDOWN, HIGH);
   changeAddress(&sensorEast, 0x27);
   delay(10);
+  
   digitalWrite(NORTH_SHUTDOWN, HIGH); // NORTH maintains default address
 
   // init all sensors
   initSensor(&sensorNorth);
   initSensor(&sensorSouth);
-  // initSensor(ptrSensorWest);
+  initSensor(&sensorWest);
   initSensor(&sensorEast);
 }
 
@@ -81,7 +82,7 @@ double getDist(int direction) {
   case SOUTH:
     return sensorSouth.readRangeSingleMillimeters();
   case WEST:
-    // return SensorWest.readRangeSingleMillimeters();
+    return SensorWest.readRangeSingleMillimeters();
   case EAST:
     return sensorEast.readRangeSingleMillimeters();
   }
