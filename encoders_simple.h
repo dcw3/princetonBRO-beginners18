@@ -3,6 +3,9 @@ This module interfaces with the encoders.
  This is written in C++ as it works with the Arduino an is also much easier to work with.
 */
 
+#ifndef ENCODERS_SIMPLE_FILE
+#define ENCODERS_SIMPLE_FILE
+
 #include "globals.h"
 #include "Encoder.h"
 
@@ -63,3 +66,4 @@ void Rewrite(double val, int direction) {
 
 }
 
+#endif

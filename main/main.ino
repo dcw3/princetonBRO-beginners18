@@ -7,6 +7,7 @@
 
 void setup() {
   // put your setup code here, to run once:
+  setupSensors();
   Maze_T maze = maze_init();
   Movement_T movement = movement_init();
   //int coord1 = 0, coord2 = 0,

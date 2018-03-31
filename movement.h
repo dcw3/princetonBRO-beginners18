@@ -1,3 +1,6 @@
+#ifndef MOVEMENT_FILE
+#define MOVEMENT_FILE
+
 #import "globals.h"
 #import "maze.h"
 #import "pid.h"
@@ -104,3 +107,5 @@ int GetCoord1(){
 int GetCoord2(){
     return ((int)(getCumulDist(EAST)-getCumulDist(WEST))/one_square);
 }
+
+#endif
