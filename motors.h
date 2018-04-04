@@ -41,13 +41,13 @@ void setMotor(int direction, double power)
 }
 
 // any initialization that's needed
-void init() 
+void init_motor() 
 {
 
 }
 
 // reset anything that needs to be reset?
-reset() 
+void reset_motor() 
 {
 
 }

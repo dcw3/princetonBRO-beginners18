@@ -11,7 +11,7 @@ This module is used to interface with the distance sensors.
 // pins connected to VL6180 GPIO used to hold sensor in reset
 #define NORTH_SHUTDOWN 13
 #define EAST_SHUTDOWN 1
-#define WEST_SHUTDOWN 0 
+#define WEST_SHUTDOWN 0
 
 // threshold distance for detectWall (mm)
 double const WALL = 70;
@@ -82,7 +82,7 @@ double getDist(int direction) {
   case SOUTH:
     return sensorSouth.readRangeSingleMillimeters();
   case WEST:
-    return SensorWest.readRangeSingleMillimeters();
+    return sensorWest.readRangeSingleMillimeters();
   case EAST:
     return sensorEast.readRangeSingleMillimeters();
   }

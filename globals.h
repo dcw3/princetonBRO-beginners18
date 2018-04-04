@@ -3,7 +3,7 @@ our robot starts at the south west corner of the maze and begins facing north
 (so the center of the maze is to the forward and right) */
 
 #ifndef GLOBALS_FILE
-#define GLOBALS
+#define GLOBALS_FILE
 
 int const NORTH = 0;
 int const EAST = 1;

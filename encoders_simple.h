@@ -24,7 +24,7 @@ Encoder leftDisp(leftAPin, leftBPin);
 // No initiate function necessary. Use reset to set encoders back to zero.
 
 // anything needed during reset
-void reset() {
+void reset_encoders_simple() {
     upDisp = Encoder(forwardAPin, forwardBPin);
     leftDisp = Encoder(leftAPin, leftBPin);
 }
@@ -47,7 +47,7 @@ double getCumulDist(int direction) {
     return 1.0/0.0;
 }
 
-void Rewrite(double val, int direction) {
+void rewrite(double val, int direction) {
  val = abs(val / 1000);
   switch(direction) {
    case NORTH  :
