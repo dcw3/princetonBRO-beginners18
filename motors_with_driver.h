@@ -64,7 +64,7 @@ void turbo(int direction) {
 }
 
 // any initialization that's needed
-void init() {
+void init_motors_with_driver() {
     maxPower = (int) (LUDICROUS_SPEED * goodVoltage/batteryVoltage); // Probably could be done above but ¯\_(ツ)_/¯
     pinMode(motorAPinA, OUTPUT);
     pinMode(motorAPinB, OUTPUT);
@@ -73,7 +73,7 @@ void init() {
 }
 
 // reset anything that needs to be reset - Turns off motors.
-void reset() {
+void reset_motors_with_driver() {
     analogWrite(motorAPinA, 0);
     analogWrite(motorAPinB, 0);
     analogWrite(motorBPinA, 0);

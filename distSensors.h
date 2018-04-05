@@ -6,24 +6,18 @@ This module is used to interface with the distance sensors.
 
 #include "VL6180X.h"
 #include "globals.h"
-#include <Arduino.h>
 
-// pins connected to VL6180 GPIO used to hold sensor in reset
-#define NORTH_SHUTDOWN 10
-#define EAST_SHUTDOWN 9
-#define WEST_SHUTDOWN 8 
-
-// initial offsets (unused)
-const double INIT_N_OFFSET = 0;
-const double INIT_S_OFFSET = 0;
-const double INIT_E_OFFSET = 0;
-const double INIT_W_OFFSET = 0;
+// pins connected to VL6180 GPIO used to hold sensor in reset (to be redefined after final wiring)
+#define NORTH_SHUTDOWN 13
+#define EAST_SHUTDOWN 1
+#define WEST_SHUTDOWN 0
 
 // threshold distance for detectWall (mm)
 double const WALL = 70;
 
 // initializes sensor
 void initSensor(VL6180X* sensor) {
+	delay(20);
 	(*sensor).init();
 	(*sensor).configureDefault();
 	(*sensor).setTimeout(500);
@@ -35,40 +29,46 @@ VL6180X sensorSouth;
 VL6180X sensorWest;
 VL6180X sensorEast;
 
-// pointers
-VL6180X *ptrSensorNorth = &sensorNorth;
-VL6180X *ptrSensorSouth = &sensorSouth;
-VL6180X *ptrSensorWest = &sensorWest;
-VL6180X *ptrSensorEast = &sensorEast;
-
 void setupSensors() {
 	// shutdown pins
 	pinMode(NORTH_SHUTDOWN, OUTPUT);
 	pinMode(WEST_SHUTDOWN, OUTPUT);
 	pinMode(EAST_SHUTDOWN, OUTPUT);
 
-	 // hold each sensor in shutdown initially
+	// hold each sensor in shutdown initially
 	digitalWrite(NORTH_SHUTDOWN, LOW);
 	digitalWrite(WEST_SHUTDOWN, LOW);
 	digitalWrite(EAST_SHUTDOWN, LOW);
 	delay(10);
 
-	// wake sensors and change address one by one
-	(*ptrSensorSouth).setAddress(0x25); // SOUTH is the first to change - doesnt need to be in reset
-	delay(10);
+	digitalWrite(NORTH_SHUTDOWN, HIGH);
 	digitalWrite(WEST_SHUTDOWN, HIGH);
-	(*ptrSensorWest).setAddress(0x25);
-	delay(10);
 	digitalWrite(EAST_SHUTDOWN, HIGH);
-	(*ptrSensorEast).setAddress(0x27);
-	delay(10);
+
+	digitalWrite(NORTH_SHUTDOWN, LOW);
+	digitalWrite(WEST_SHUTDOWN, LOW);
+	digitalWrite(EAST_SHUTDOWN, LOW);
+  
+	// wake sensors and change address one by one
+	sensorSouth.setAddress(0x23);
+	delay(20);
+ 
+	digitalWrite(WEST_SHUTDOWN, HIGH);
+	delay(20);
+	sensorWest.setAddress(0x25);
+ 
+	digitalWrite(EAST_SHUTDOWN, HIGH);
+	delay(20);
+	sensorEast.setAddress(0x27);
+  
 	digitalWrite(NORTH_SHUTDOWN, HIGH); // NORTH maintains default address
+	delay(20);
 
 	// init all sensors
-	initSensor(ptrSensorNorth);
-	initSensor(ptrSensorSouth);
-	initSensor(ptrSensorWest);
-	initSensor(ptrSensorEast);
+	initSensor(&sensorNorth);
+	initSensor(&sensorSouth);
+	initSensor(&sensorWest);
+	initSensor(&sensorEast);
 }
 
 // Return the distance reading from the given direction

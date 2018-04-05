@@ -18,7 +18,7 @@ struct PID {
 
 typedef struct PID *PID_T;
 // return a PID loop object
-PID_T init(double kP, double kI, double kD) {
+PID_T init_pid(double kP, double kI, double kD) {
 	struct PID *p;
 	p->kP = kP;
 	p->kI = kI;
@@ -36,7 +36,7 @@ void setPoint(PID_T pid, double setpoint_value) {
 }
 
 // reset prevMeasure, setPoint,integral, prevError, derivative
-void reset(PID_T pid) {
+void reset_pid(PID_T pid) {
 	pid->integral = 0;
 	pid->setPoint = 0;
 	pid->derivative = 0;

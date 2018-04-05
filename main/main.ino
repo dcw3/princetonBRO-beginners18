@@ -1,15 +1,16 @@
 #ifndef MAIN2_H_INCLUDED
 #define MAIN2_H_INCLUDED
 
-#import "maze.h"
-#import "movement.h"
-#import "globals.h"
+#include "maze.h"
+#include "movement.h"
+#include "globals.h"
+#include "distSensors.h"
 
 void setup() {
   // put your setup code here, to run once:
   setupSensors();
-  Maze_T maze = maze_init();
-  Movement_T movement = movement_init();
+  Maze_T maze = init_mazw();
+  Movement_T movement = init();
   //int coord1 = 0, coord2 = 0,
   int d = -1;
   int centerFound = 0;

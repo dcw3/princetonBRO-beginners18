@@ -24,7 +24,7 @@ Encoder leftDisp(leftAPin, leftBPin);
 // No initiate function necessary. Use reset to set encoders back to zero.
 
 // anything needed during reset
-void reset() {
+void reset_encoders_simple() {
     upDisp = Encoder(forwardAPin, forwardBPin);
     leftDisp = Encoder(leftAPin, leftBPin);
 }
@@ -45,6 +45,25 @@ double getCumulDist(int direction) {
           return -(rev_per_click * leftDisp.read() * circumference_left);
     }
     return 1.0/0.0;
+}
+
+void rewrite(double val, int direction) {
+ val = abs(val / 1000);
+  switch(direction) {
+   case NORTH  :
+       upDisp.write(upDisp.read() + val/(rev_per_click*circumference_up));
+
+    case EAST  :
+      leftDisp.write(leftDisp.read() - val/(rev_per_click*circumference_up));
+
+      case SOUTH  :
+          upDisp.write(upDisp.read() - val/(rev_per_click*circumference_up));
+
+      case WEST  :
+          leftDisp.write(leftDisp.read() + val/(rev_per_click*circumference_up));
+    }
+
+
 }
 
 #endif
