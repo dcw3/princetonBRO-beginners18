@@ -7,7 +7,7 @@ This module is used to interface with the distance sensors.
 #include "vl6180x/VL6180X.h"
 #include "globals.h"
 
-// pins connected to VL6180 GPIO used to hold sensor in reset
+// pins connected to VL6180 GPIO used to hold sensor in reset (to be redefined after final wiring)
 #define NORTH_SHUTDOWN 13
 #define EAST_SHUTDOWN 1
 #define WEST_SHUTDOWN 0
