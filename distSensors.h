@@ -23,10 +23,6 @@ void initSensor(VL6180X* sensor) {
 	(*sensor).setTimeout(500);
 }
 
-void changeAddress(VL6180X* sensor, int address) {
-	(*sensor).setAddress(address);  
-}
-
 // sensors
 VL6180X sensorNorth;
 VL6180X sensorSouth;
@@ -54,16 +50,16 @@ void setupSensors() {
 	digitalWrite(EAST_SHUTDOWN, LOW);
   
 	// wake sensors and change address one by one
-	changeAddress(&sensorSouth, 0x23);
+	sensorSouth.setAddress(0x23);
 	delay(20);
  
 	digitalWrite(WEST_SHUTDOWN, HIGH);
 	delay(20);
-	changeAddress(&sensorWest,0x25);
+	sensorWest.setAddress(0x25);
  
 	digitalWrite(EAST_SHUTDOWN, HIGH);
 	delay(20);
-	changeAddress(&sensorEast, 0x27);
+	sensorEast.setAddress(0x27);
   
 	digitalWrite(NORTH_SHUTDOWN, HIGH); // NORTH maintains default address
 	delay(20);
