@@ -4,7 +4,7 @@ This module is used to interface with the distance sensors.
 #ifndef DISTSENSORS_FILE
 #define DISTSENSORS_FILE
 
-#include "vl6180x/VL6180X.h"
+#include "VL6180X.h"
 #include "globals.h"
 
 // pins connected to VL6180 GPIO used to hold sensor in reset (to be redefined after final wiring)
