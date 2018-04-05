@@ -11,7 +11,6 @@
 
 // Distance moved in each direction
 struct Movement{
-	double total = 0;
 	// constant, will include tolerance
 	double one_square = 12;
 };
@@ -24,7 +23,6 @@ Movement_T init_movement() {
 }
 
 void reset_movement(Movement_T m, double value_for_one_square){
-	m->total = 0;
 	m->one_square = value_for_one_square;
 }
 
@@ -32,7 +30,7 @@ void moved(int direction, double move_value){
     PID_T pid1 = init_pid(1,2,3); // Needs to be changed
     StopWatch sw_millis; // TODO: add stopwatch
     sw_millis.start();
-    double prevTime = sw_millis.value(); 
+    double prevTime = sw_millis.value();
     double currentTime=0;
     double final_dist = getCumulDist(direction) + move_value;
 
