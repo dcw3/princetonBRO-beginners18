@@ -9,8 +9,9 @@ This module is used to interface with the distance sensors.
 
 // pins connected to VL6180 GPIO used to hold sensor in reset (to be redefined after final wiring)
 #define NORTH_SHUTDOWN 13
-#define EAST_SHUTDOWN 1
-#define WEST_SHUTDOWN 0
+#define EAST_SHUTDOWN 12
+#define WEST_SHUTDOWN 8
+//#define SOUTH_SHUTDOWN 8
 
 // threshold distance for detectWall (mm)
 double const WALL = 70;
@@ -38,20 +39,24 @@ void setupSensors() {
 	pinMode(NORTH_SHUTDOWN, OUTPUT);
 	pinMode(WEST_SHUTDOWN, OUTPUT);
 	pinMode(EAST_SHUTDOWN, OUTPUT);
+  //pinMode(SOUTH_SHUTDOWN, OUTPUT);
 
 	// hold each sensor in shutdown initially
 	digitalWrite(NORTH_SHUTDOWN, LOW);
 	digitalWrite(WEST_SHUTDOWN, LOW);
 	digitalWrite(EAST_SHUTDOWN, LOW);
+  //digitalWrite(SOUTH_SHUTDOWN, LOW);
 	delay(10);
 
 	digitalWrite(NORTH_SHUTDOWN, HIGH);
 	digitalWrite(WEST_SHUTDOWN, HIGH);
 	digitalWrite(EAST_SHUTDOWN, HIGH);
+  //digitalWrite(SOUTH_SHUTDOWN, HIGH);
 
 	digitalWrite(NORTH_SHUTDOWN, LOW);
 	digitalWrite(WEST_SHUTDOWN, LOW);
 	digitalWrite(EAST_SHUTDOWN, LOW);
+  //digitalWrite(SOUTH_SHUTDOWN, HIGH);
   
 	// wake sensors and change address one by one
 	changeAddress(&sensorSouth, 0x23);

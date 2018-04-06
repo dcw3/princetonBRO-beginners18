@@ -6,20 +6,18 @@
 #include "globals.h"
 #include "distSensors.h"
 
+  int d = -1;
+  int centerFound = 0;
 void setup() {
   // put your setup code here, to run once:
   setupSensors();
-  Maze_T maze = init_mazw();
-  Movement_T movement = init();
+  Maze_T maze = init_maze();
+  Movement_T movement = init_movement();
   //int coord1 = 0, coord2 = 0,
-  int d = -1;
-  int centerFound = 0;
-
 }
 void loop() {
   // put your main code here, to run repeatedly:
-
-  if (((GetCoord1() == 7) || (GetCoord1() == 8)) && ((GetCoord2() == 7) || (GetCoord2() == 8))) {
+  if (((GetCoord1(movement) == 7) || (GetCoord1(movement) == 8)) && ((GetCoord2(movement) == 7) || (GetCoord2(movement) == 8))) {
   //implement back-trace
     centerFound = 1;
     WillYouPleaseReturnForGodsSake();

@@ -8,18 +8,25 @@ void setup() {
 }
 void loop() {
   //move in a square and print encoder cumul distance
-  printDistances();
-  for(int i = 0; i < 4; i++) {
-    moved(i, 500);
-  }
-  printDistances();
+//  printDistances();
+//  for(int i = 0; i < 4; i++) {
+//    moved(i, 100);
+//  }
+//  printDistances();
   //===================================================
-  //move back and forth
-  int startDist = (getCumulDist(NORTH));
-  Serial.println(getCumulDist(NORTH));
-  moved(SOUTH, 500);
-  Serial.println(getCumulDist(NORTH)-startDist);
-  moved(NORTH, 500);
+  //move back and forth 50mm in south, north direction
+  //holds distance data at start of period
+  int startDist = getDist(NORTH);
+  //holds encoder data at start of period
+  int totalDist = getCumulDist(NORTH);
+  Serial.print("Start distance sensor reading: ");
+  Serial.println(getDist(NORTH));
+  moved(SOUTH, 100);
+  Serial.print("End distance sensor reading  : ");
+  Serial.println(getDist(NORTH));
+  Serial.print("Encoder Error = ");
+  Serial.println(getDist(NORTH) - startDist);
+  moved(NORTH, 100);
   Serial.println(getCumulDist(NORTH)-startDist);
  }
 
