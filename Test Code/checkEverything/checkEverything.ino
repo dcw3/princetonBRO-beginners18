@@ -1,33 +1,35 @@
 #include "maze.h"
 void setup() {
   // put your setup code here, to run once:
-  setupSensors();
-  Maze_T maze = init_maze();
-  Movement_T movement = init_movement();
+  //Maze_T maze = init_maze();
+  //Movement_T movement = init_movement();
+  init_motors_with_driver();
   Serial.begin(9600);
 }
 void loop() {
   //move in a square and print encoder cumul distance
-//  printDistances();
+  //printDistances();
+  setMotor(NORTH, 255);
 //  for(int i = 0; i < 4; i++) {
-//    moved(i, 100);
+//    setMotor(i, .5);
+//    delay(100);
 //  }
-//  printDistances();
+  printDistances();
   //===================================================
   //move back and forth 50mm in south, north direction
   //holds distance data at start of period
-  int startDist = getDist(NORTH);
-  //holds encoder data at start of period
-  int totalDist = getCumulDist(NORTH);
-  Serial.print("Start distance sensor reading: ");
-  Serial.println(getDist(NORTH));
-  moved(SOUTH, 100);
-  Serial.print("End distance sensor reading  : ");
-  Serial.println(getDist(NORTH));
-  Serial.print("Encoder Error = ");
-  Serial.println(getDist(NORTH) - startDist);
-  moved(NORTH, 100);
-  Serial.println(getCumulDist(NORTH)-startDist);
+//  int startDist = getDist(NORTH);
+//  //holds encoder data at start of period
+//  int totalDist = getCumulDist(NORTH);
+//  Serial.print("Start distance sensor reading: ");
+//  Serial.println(getDist(NORTH));
+//  moved(SOUTH, 100);
+//  Serial.print("End distance sensor reading  : ");
+//  Serial.println(getDist(NORTH));
+//  Serial.print("Encoder Error = ");
+//  Serial.println(getDist(NORTH) - startDist);
+//  moved(NORTH, 100);
+//  Serial.println(getCumulDist(NORTH)-startDist);
  }
 
 void printDistances() {

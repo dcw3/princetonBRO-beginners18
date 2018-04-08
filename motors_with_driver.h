@@ -16,10 +16,10 @@ const float goodVoltage = 5.0; // Good speed for robot voltage
 int maxPower = 0;
 const int LUDICROUS_SPEED = 255; // Max power, too fast for normal movement.
 
-const int motorAPinA = 11; // Fix these when wiring robot. Must be pins with ~ by them (support PWM).
-const int motorAPinB = 10;
-const int motorBPinA = 9;
-const int motorBPinB = 6;
+const int motorAPinA = 6; // Fix these when wiring robot. Must be pins with ~ by them (support PWM).
+const int motorAPinB = 9;
+const int motorBPinA = 10;
+const int motorBPinB = 11;
 
 const int scaleA = 1; // Motors not same speed? Change these to scale them. Must be one or less.
 const int scaleB = 1;
